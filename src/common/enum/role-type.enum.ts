@@ -1,0 +1,6 @@
+export enum RoleType {
+  SUPER_ADMIN = 'SUPER_ADMIN',
+  ADMIN = 'ADMIN',
+  PROVIDER = 'PROVIDER',
+  CUSTOMER = 'CUSTOMER',
+}
