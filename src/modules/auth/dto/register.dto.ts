@@ -2,25 +2,25 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsEmail, IsEnum, IsOptional, IsString, MinLength } from 'class-validator';
 import { RoleType } from 'src/common/enum/role-type.enum';
 
-export class CreateUserDto {
-  @ApiProperty({ description: 'اسم المستخدم' })
+export class RegisterDto {
+  @ApiProperty({ description: 'اسم المستخدم', example: 'Ahmad AlSamadi' })
   @IsString()
-  username!: string;
+  username: string;
 
   @ApiProperty({ description: 'البريد الإلكتروني', example: 'user@example.com' })
   @IsEmail()
-  email!: string;
+  email: string;
 
   @ApiProperty({ description: 'كلمة المرور', minLength: 8 })
   @IsString()
   @MinLength(8)
-  password!: string;
+  password: string;
 
   @ApiProperty({ description: 'دور المستخدم', enum: RoleType })
   @IsEnum(RoleType)
-  role!: RoleType;
+  role: RoleType;
 
-  @ApiPropertyOptional({ description: 'رقم الهاتف (اختياري)' })
+  @ApiPropertyOptional({ description: 'رقم الهاتف (اختياري)', example: '+9627xxxxxxx' })
   @IsOptional()
   @IsString()
   phoneNumber?: string;

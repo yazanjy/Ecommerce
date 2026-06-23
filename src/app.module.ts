@@ -20,6 +20,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './modules/users/users.module';
 import { ErrorLogModule } from './modules/error-log/error-log.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -56,6 +57,7 @@ import { ErrorLogModule } from './modules/error-log/error-log.module';
     // 5. موديولات البيزنس الحالية (تنمو تدريجياً كلما أنشأنا موديول جديد)
     UsersModule,
     ErrorLogModule,
+    AuthModule, // موديول تسجيل الدخول والتسجيل وإصدار التوكنات
   ],
   controllers: [AppController],
   providers: [

@@ -11,12 +11,14 @@ export { RoleType, PermissionType };
  * - الـ PROVIDER والـ CUSTOMER يبدأون بمصفوفات فارغة ويمكن تخصيص صلاحيات لهم لاحقاً.
  */
 export const ROLE_PERMISSIONS: Record<RoleType, PermissionType[]> = {
-  [RoleType.SUPER_ADMIN]: [], 
-  
-  [RoleType.PROVIDER]: [],
-  
+  [RoleType.SUPER_ADMIN]: [],
+
+  [RoleType.MODERATOR]: [],
+  [RoleType.MERCHANT]: [],
+  [RoleType.SUPPORTER]: [],
+
   [RoleType.CUSTOMER]: [],
-  
+
   [RoleType.ADMIN]: [
     PermissionType.MANAGE_USERS,
     PermissionType.MANAGE_PRODUCTS,

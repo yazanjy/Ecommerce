@@ -41,11 +41,11 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
 
   // 🌐 1. إعدادات الـ CORS (جسر العبور الآمن الذي يسمح للـ Frontend بالاتصال بالسيرفر)
-  app.enableCors({
-    origin: true, // في مرحلة الإنتاج الفعلي، يتم استبداله برابط الـ Frontend الحقيقي
+app.enableCors({
+    origin: configService.get<string>('FRONTEND_URL') || 'http://localhost:3000', // 👈 أسلوب سينيور آمن
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept-Language'],
-    credentials: true, // أساسي جداً لتمرير الكوكيز وجلسات العمل الآمنة
+    credentials: true,
   });
 
   // 🍪 2. تفعيل قراءة الكوكيز (Cookie Parser)
@@ -89,9 +89,14 @@ async function bootstrap() {
     .addBearerAuth({ type: 'http', scheme: 'bearer' }, 'access-token')
     .build();
 
-  const document = SwaggerModule.createDocument(app, config);
-  // يمكنك الآن تصفح التوثيق عبر الرابط: http://localhost:4000/api/docs
-  SwaggerModule.setup('api/docs', app, document);
+const document = SwaggerModule.createDocument(app, config);
+  
+  // 🔌 التعديل هنا: أضف كائن الإعدادات هذا كمعامل رابع لجعل Swagger يمرر الكوكيز تلقائياً
+  SwaggerModule.setup('api/docs', app, document, {
+    swaggerOptions: {
+      withCredentials: true, // 👈 أساسي جداً لتشغيل الـ refresh token عبر الكوكيز داخل Swagger بنجاح
+    },
+  });
 
   // 🔌 6. تشغيل السيرفر بناءً على البورت المحدد في ملف الـ .env
   const port = configService.get<number>('PORT') || 4000;

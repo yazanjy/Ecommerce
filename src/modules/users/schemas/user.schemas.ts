@@ -28,6 +28,11 @@ email: string;
     @IsEnum(RoleType)
     role: RoleType;
 
+    @ApiPropertyOptional({ description: 'رقم الهاتف', example: '+9627xxxxxxx' })
+    @Prop({ type: String, trim: true, index: true })
+    @IsOptional()
+    phoneNumber?: string;
+
     @ApiPropertyOptional({ description: 'حالة المستخدم', enum: UserStatus })
     @Prop({ enum: UserStatus, default: UserStatus.ACTIVE })
     @IsEnum(UserStatus)
@@ -87,6 +92,7 @@ UserSchema.index(
 
 
 UserSchema.index({ role: 1 });
+UserSchema.index({ phoneNumber: 1 });
 UserSchema.index({ status: 1 });
 
 
